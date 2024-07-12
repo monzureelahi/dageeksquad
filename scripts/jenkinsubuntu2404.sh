@@ -1,4 +1,4 @@
-##Launch Ubuntu 24.04 EC2 Instance
+##Launch Ubuntu 24.04 EC2 Instance (Source: https://www.jenkins.io/doc/book/installing/linux/)
 #Add Port 22, 8080 in inbound Port
 
 ##Steps to create and run the script file
