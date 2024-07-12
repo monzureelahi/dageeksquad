@@ -6,6 +6,8 @@
 #assign permission: chmod 777 scriptfilename.sh
 #run the script file: ./scriptfilename.sh
 
+##Go to browser, enter publicipaddress:8080
+
 #!/bin/bash
 sudo apt update
 sudo apt install fontconfig openjdk-17-jre -y
