@@ -1,7 +1,10 @@
-Steps to create and run the script file
-Create a script file (ends with .sh) by copying and pasting codes below
-assign permission: chmod 777 scriptfilename.sh
-run the script file: ./scriptfilename.sh
+##Launch Ubuntu 24.04 EC2 Instance
+#Add Port 22, 8080 in inbound Port
+
+##Steps to create and run the script file
+#Create a script file (ends with .sh) by copying and pasting codes below
+#assign permission: chmod 777 scriptfilename.sh
+#run the script file: ./scriptfilename.sh
 
 #!/bin/bash
 sudo apt update
