@@ -1,3 +1,14 @@
+##Tomcat Server automated installation
+##Launch AWS Linux 2023 EC2 Instance
+#Add Port 22, 8080 in inbound Port
+
+##Steps to create and run the script file
+#Create a script file (ends with .sh) by copying and pasting codes below
+#assign permission: chmod 777 scriptfilename.sh or chmod +x scriptfilename.sh
+#run the script file: ./scriptfilename.sh
+
+##After the installation is completed, Go to browser, enter publicipaddress:8080
+
 ##Install Tomcat Server
 
 #!/bin/bash
@@ -14,6 +25,6 @@ sudo chmod +x /opt/tomcat/bin/shutdown.sh
 
 
 ##Do the following manually
-sudo su -
+$ sudo su -
 # sudo /opt/tomcat/bin
 # ./startup.sh
