@@ -28,3 +28,9 @@ sudo chmod +x /opt/tomcat/bin/shutdown.sh
 $ sudo su -
 # sudo /opt/tomcat/bin
 # ./startup.sh
+
+## Download sample .war file from https://tomcat.apache.org/tomcat-10.1-doc/appdev/sample/
+# cd /opt/tomcat/webapps
+# wget https://tomcat.apache.org/tomcat-10.1-doc/appdev/sample/
+
+##Go to browser and test http://publicipaddress:8080/sample/
