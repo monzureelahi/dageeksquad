@@ -31,6 +31,13 @@ $ sudo su -
 
 ## Download sample .war file from https://tomcat.apache.org/tomcat-10.1-doc/appdev/sample/
 # cd /opt/tomcat/webapps
-# wget https://tomcat.apache.org/tomcat-10.1-doc/appdev/sample/
+# wget https://tomcat.apache.org/tomcat-10.0-doc/appdev/sample/sample.war (Source https://tomcat.apache.org/tomcat-10.1-doc/appdev/sample/)
 
 ##Go to browser and test http://publicipaddress:8080/sample/
+
+## .war file gets extracted automatically. We can edit them if needed
+
+## Create .war file
+##Install jar first: # yum install java-devel -y
+## Create a tmp folder, copy the .war file, unzip it using unzip command, edit files using nano and create the .war file with following command
+# jar -cvf sample2.war #
