@@ -39,5 +39,5 @@ $ sudo su -
 
 ## Create .war file
 ##Install jar first: # yum install java-devel -y
-## Create a tmp folder, copy the .war file, unzip it using unzip command, edit files using nano and create the .war file with following command
+## Create a tmp folder, copy the .war file, unzip it using unzip command, edit index file using nano and create the .war file with following command
 # jar -cvf sample2.war #
