@@ -22,4 +22,5 @@ sudo apt install jenkins -y
 sudo systemctl start jenkins
 sudo ufw enable
 sudo ufw allow 8080/tcp
+sudo ufw allow 22/tcp
 sudo ufw reload
