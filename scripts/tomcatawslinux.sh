@@ -24,7 +24,7 @@ sudo chmod +x /opt/tomcat/bin/startup.sh
 sudo chmod +x /opt/tomcat/bin/shutdown.sh
 
 
-##Do the following manually
+##Start the Tomcat - Do the following manually
 $ sudo su -
 # sudo /opt/tomcat/bin
 # ./startup.sh
