@@ -16,10 +16,9 @@ sudo yum update -y
 sudo dnf install java-17-amazon-corretto -y
 sudo yum upgrade
 sudo wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.26/bin/apache-tomcat-10.1.26.tar.gz
-sudo cp apache-tomcat-10.1.26.tar.gz /opt/
-sudo tar -xvzf /opt/apache-tomcat-10.1.26.tar.gz
-sudo mv apache-tomcat-10.1.26 /opt/
-sudo mv /opt/apache-tomcat-10.1.26 /opt/tomcat
+sudo tar -xvzf apache-tomcat-10.1.26.tar.gz
+sudo mv apache-tomcat-10.1.26 tomcat
+sudo mv tomcat /opt
 sudo chmod +x /opt/tomcat/bin/startup.sh
 sudo chmod +x /opt/tomcat/bin/shutdown.sh
 
@@ -28,6 +27,8 @@ sudo chmod +x /opt/tomcat/bin/shutdown.sh
 $ sudo su -
 # sudo /opt/tomcat/bin
 # ./startup.sh
+
+##Go to browser and test http://publicipaddress:8080 to check Tomcat Server
 
 ## Download sample .war file from https://tomcat.apache.org/tomcat-10.1-doc/appdev/sample/
 # cd /opt/tomcat/webapps
@@ -39,6 +40,8 @@ $ sudo su -
 
 ## Create .war file
 ##Install jar first: # yum install java-devel -y
-## Create a tmp folder, copy the .war file, unzip it using unzip command, edit index file using nano and create the .war file with following command
+
+## Create a tmp folder in /tmp, copy the .war file, unzip it using unzip command, edit index file using nano and create the .war file with following command
+
 # jar -cvf sample2.war 
 # Unzip .war file: unzip sample2.war
