@@ -1,0 +1,220 @@
+Linux Practice
+
+System Information and Monitoring
+uname – Displays system information
+uname -a
+
+top – Displays real-time system processes
+top
+
+uptime – Shows how long the system has been running
+uptime
+
+free – Displays memory usage
+free -h
+
+df – Shows disk space usage
+df -h
+
+du – Shows disk usage for files and directories
+du -sh /path/to/directory
+
+ps – Displays active processes
+ps aux
+
+kill – Terminates a process
+kill <PID>
+
+killall – Kills all instances of a process
+killall <process_name>
+
+netstat – Displays network connections
+netstat -tuln
+
+dmesg – Displays kernel ring buffer messages
+dmesg | tail
+
+User and Group Management
+useradd – Creates a new user
+sudo useradd devuser
+
+usermod – Modifies user account details
+sudo usermod -aG wheel devuser
+
+userdel – Deletes a user
+sudo userdel devuser
+
+groupadd – Creates a new group
+sudo groupadd devgroup
+
+groupdel – Deletes a group
+sudo groupdel devgroup
+
+passwd – Changes a user’s password
+sudo passwd devuser
+
+chage – Modifies user account expiration settings
+sudo chage -l devuser
+
+Locking an User
+sudo usermod -L username
+
+Unlocking an User
+sudo usermod -U username
+
+who – Displays logged-in users
+who
+
+id – Displays user and group information
+id devuser
+
+last – Displays last logins on the system
+last
+
+File and Directory Management
+ls – Lists files and directories
+ls -la /path/to/directory
+cd – Changes directory
+cd /path/to/directory
+
+pwd – Prints the working directory
+pwd
+
+mkdir – Creates a new directory
+mkdir /path/to/newdirectory
+rmdir – Removes an empty directory
+rmdir /path/to/directory
+rm – Removes files or directories
+rm -rf /path/to/directory
+
+cp – Copies files or directories
+cp source_file.txt /path/to/destination/
+
+mv – Moves or renames files or directories
+mv old_name.txt new_name.txt
+
+find – Searches for files or directories
+find /path/to/search -name "file_name"
+
+locate – Finds files by name (requires the mlocate package)
+locate file_name
+
+chmod – Changes file permissions
+chmod 755 file.sh
+chown – Changes file ownership
+sudo chown user:group file.txt
+
+ln – Creates hard or symbolic links
+ln -s /path/to/original /path/to/link
+
+tar – Creates or extracts compressed archive files
+tar -czvf archive.tar.gz /path/to/directory/
+tar -xzvf archive.tar.gz
+zip – Compresses files into a zip archive
+
+zip archive.zip file1 file2
+unzip – Extracts files from a zip archive
+
+unzip archive.zip
+bzip2 – Compresses files using bzip2
+bzip2 file.txt
+
+gunzip – Extracts gzipped files
+gunzip file.txt.gz
+
+Package Management
+yum install – Installs a package
+sudo yum install nginx
+
+yum update – Updates installed packages
+sudo yum update
+yum remove – Removes a package
+sudo yum remove nginx
+yum search – Searches for a package
+yum search package_name
+
+rpm -ivh – Installs an RPM package
+sudo rpm -ivh package.rpm
+
+rpm -e – Removes an RPM package
+sudo rpm -e package_name
+yum groupinstall – Installs a group of packages
+sudo yum groupinstall "Development Tools"
+
+Networking Commands
+ping – Tests connectivity to a host
+ping google.com
+
+curl – Transfers data from or to a server
+curl -I http://example.com
+
+wget – Downloads files from the web
+wget http://example.com/file.zip
+
+scp – Securely copies files between systems
+scp file.txt user@remote_host:/path/to/destination
+rsync – Syncs files between systems
+rsync -avz /local/dir/ user@remote:/remote/dir/
+ifconfig – Displays or configures network interfaces
+
+ifconfig eth0
+ip – Configures IP addresses and routes
+
+ip addr show
+route – Displays or modifies the IP routing table
+route -n
+
+netstat – Displays network connections
+netstat -tuln
+
+traceroute – Traces the path packets take to a destination
+traceroute google.com
+
+nmap – Network exploration tool (use cautiously)
+nmap -sP 192.168.1.0/24
+
+hostname – Displays or sets the system’s hostname
+hostname
+
+dig – DNS lookup
+dig google.com
+
+whois – WHOIS lookup (requires installation)
+whois google.com
+
+Security Commands
+firewall-cmd – Manages firewall rules (firewalld)
+sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent
+sudo firewall-cmd --reload
+sudo firewall-cmd --list-all
+
+
+tail – Views the end of a log file
+tail -f /var/log/messages
+
+grep – Searches for patterns in files
+grep "error" /var/log/syslog
+
+less – Views large log files
+less /var/log/syslog
+
+journalctl – Views systemd logs
+journalctl -u nginx
+
+Miscellaneous
+alias – Creates command shortcuts
+alias ll='ls -la'
+
+history – Shows command history
+history
+
+tee – Redirects output to a file and stdout
+echo "test" | tee file.txt
+
+chmod – Changes file permissions
+chmod 755 script.sh
+
+chown – Changes file owner and group
+chown user:group file.txt
+
+reboot – Reboots the system  sudo reboot
