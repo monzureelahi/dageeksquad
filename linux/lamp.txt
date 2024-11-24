@@ -1,4 +1,4 @@
-Project: Linux Apache Mariadb PHP
+Project: Linux Apache Mariadb PHP (LAMP)
 
 Step 1:
 go to /tmp, Copy and paste the following commands, create a bash script as lamp.sh and run this to install LAMP
@@ -68,3 +68,37 @@ sudo systemctl start mariadb
 Test it: http://publicipofec2instance/phpMyAdmin
 
 Enter root user ID and Password
+
+Project: Schdule a cronjob that will back everything from mysql server to different location
+
+sudo dnf install cronie rsync -y
+systemctl enable crond
+sudo systemctl enable crond
+sudo systemctl start crond
+sudo systemctl status crond
+mkdir /tmp/wust
+
+Edit the crontab file: Use the crontab command to edit the cron jobs for your user:
+crontab -e
+
+Add the rsync job: Add the following line to run rsync every minute. Replace /source/directory and /destination/directory with your actual paths. Press Ins to start typing
+
+* * * * * rsync -av --delete /source/directory/ /destination/directory/
+Example:
+* * * * * rsync -av --delete /var/lib/mysql /tmp/wust
+
+Save and exit the crontab editor. Press Esc, type :wq and press enter to exit
+
+-a: Archive mode (preserves permissions, timestamps, symbolic links, etc.).
+-v: Verbose output (optional).
+--delete: Deletes files in the destination that are not in the source (ensures exact mirroring).
+
+Verify the Cron Job
+crontab -l
+
+Wait for a minute
+
+Check cron logs for execution
+sudo journalctl -u crond -f
+ls /tmp/wust/
+
