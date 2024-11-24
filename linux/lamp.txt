@@ -3,6 +3,7 @@ Project: Linux Apache Mariadb PHP (LAMP)
 Step 1:
 go to /tmp, Copy and paste the following commands, create a bash script as lamp.sh and run this to install LAMP
 cd /tmp
+nano lamp.sh
 ls -ll lamp.sh
 add execute permission: chmod u+x lamp.sh
 ls -ll lamp.sh
@@ -23,11 +24,11 @@ sudo systemctl start mariadb
 sudo systemctl enable mariadb
 **Script End
 
-Step 3:
+Step 2:
 Test the Apache Web Server http://publicipofec2instance/phpinfo.php
 Remove the phpinfo.php file: sudo rm /var/www/html/phpinfo.php
 
-Step 4:
+Step 3:
 Secure the database server
 
 sudo systemctl start mariadb
@@ -45,7 +46,7 @@ sudo systemctl stop mariadb
 sudo systemctl start mariadb
 sudo systemctl enable mariadb
 
-Step 5:
+Step 4:
 go to /var/www/html, Copy and paste the following commands, create a bash script as phpmyadmin.sh and run this to install phpmyadmin
 cd /var/www/html
 ls -ll phpmyadmin.sh
