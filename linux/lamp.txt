@@ -2,6 +2,7 @@ Project: Linux Apache Mariadb PHP
 
 Step 1:
 go to /tmp, Copy and paste the following commands, create a bash script as lamp.sh and run this to install LAMP
+cd /tmp
 ls -ll lamp.sh
 add execute permission: chmod u+x lamp.sh
 ls -ll lamp.sh
