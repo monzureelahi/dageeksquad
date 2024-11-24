@@ -25,7 +25,7 @@ sudo systemctl enable mariadb
 
 Step 3:
 Test the Apache Web Server http://publicipofec2instance/phpinfo.php
-Remove the phpinfo.php file: rm /var/www/html/phpinfo.php
+Remove the phpinfo.php file: sudo rm /var/www/html/phpinfo.php
 
 Step 4:
 Secure the database server
@@ -33,6 +33,7 @@ Secure the database server
 sudo systemctl start mariadb
 sudo mysql_secure_installation
 
+Press Enter for current password
 Type N Not to switch to the Unix Socket Mode
 Type Y to set a root password
 Type Y to remove the anonymous user accounts.
