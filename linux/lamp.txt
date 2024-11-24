@@ -46,6 +46,7 @@ sudo systemctl enable mariadb
 
 Step 5:
 go to /var/www/html, Copy and paste the following commands, create a bash script as phpmyadmin.sh and run this to install phpmyadmin
+cd /var/www/html
 ls -ll phpmyadmin.sh
 add execute permission: chmod u+x phpmyadmin.sh
 ls -ll phpmyadmin.sh
