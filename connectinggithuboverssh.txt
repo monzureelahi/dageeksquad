@@ -1,0 +1,22 @@
+Connecting to GitHub Using SSH
+
+Linux Machine
+Logon as root
+Pwd
+Generate SSH Key: ssh-keygen (default name: id_rsa.pub)
+Run the ssh agent: eval $(ssh-agent -s)
+Add private key to the ssh agent: ssh-add ~/.ssh/id_rsa
+
+Clone a repo using ssh (We can’t clone a repo before the ssh based authentication)
+Git clone sshreponame
+
+Copy the public key from /root/.ssh/id_rsa.pub to GitHub
+Sudo cat /root/.ssh/id_rsa.pub
+
+Paste it in
+GitHub > Settings > SSH and GPG Keys > SSH keys
+
+Clone a repo using ssh (We can’t clone a repo before the ssh key)
+Git clone sshreponame
+
+Make changes in code and push the code
