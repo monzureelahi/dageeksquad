@@ -19,3 +19,20 @@ sudo dnf install java-17-amazon-corretto -y
 sudo yum install jenkins -y
 sudo systemctl enable jenkins
 sudo systemctl start jenkins
+
+Apache Server Permission
+ls -la /var/www/html/ (only root has permissions) 
+ls -al /var/www/html/ 
+sudo groupadd www-data 
+sudo newgrp www-data 
+sudo useradd Jenkins 
+passwd jenkins 
+sudo chown jenkins:www-data /var/www/html/ 
+ls -al /var/www/html/ 
+sudo chown jenkins:www-data -R /var/www/html/ 
+ls -al /var/www/html/ 
+sudo chmod 2771 /var/www/html/ 
+sudo chown -R jenkins:www-data /var/www/html 
+sudo chmod -R 755 /var/www/html 
+ls -al /var/www/html/ 
+
