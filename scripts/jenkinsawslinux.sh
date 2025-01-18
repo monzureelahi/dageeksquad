@@ -19,6 +19,11 @@ sudo dnf install java-17-amazon-corretto -y
 sudo yum install jenkins -y
 sudo systemctl enable jenkins
 sudo systemctl start jenkins
+sudo yum install git -y
+sudo yum install httpd -y
+sudo systemctl start httpd
+sudo systemctl enable httpd
+
 
 Apache Server Permission
 ls -la /var/www/html/ (only root has permissions) 
