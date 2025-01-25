@@ -42,12 +42,52 @@ systemctl restart sshd
 Log in as a ansadmin user on master and generate ssh key (on Control node)
 sudo su - ansadmin
 ssh-keygen
+Key location is /home/ansadmin/.ssh/id_rsa.pub
+
+Change hostname of this server to ansiblecnode and restart server
+
+####Launch another EC2 Amazon linux in the same AZ (Ansible Host)
+
+#Create a user called ansadmin (on Control node and Managed host)
+useradd ansadmin
+passwd ansadmin (Same password like Ansible Control Node)
+
+# Change host name
+nano /etc/hostname
+host1
+
+# Restart the host1 and logon to host1
+
+# Enable Password based authentication
+nano /etc/ssh/sshd_config
+
+PasswordAuthentication yes
+save the file and restart the ssh service
+systemctl restart sshd
+
+#Logon to Ansible Control Node and switch to ansadmin
 
 Copy keys onto all ansible managed hosts (on Control node)
-ssh-copy-id ansadmin@<target-server>
+ssh-copy-id ansadmin@<target-server-private-ip>
+Enter password
+Testing: Logon to host1 using private ip and it will not require any password, ssh ansadmin@host1-private-ip. Type exit to come back to the Ansible Control Node
 
-
+Create host inventory (use root account)
+nano /etc/ansible/hosts
 
 Validation test
 Run ansible command as ansadmin user it should be successful (Master)
 ansible all -m ping
+enter yes to continue
+it will not ping local host as I did not add ssh-key to localhost
+Enter yes to quit
+
+Add ssh key to localhost (logon as ansadmin)
+ssh-copy-id localhost
+Enter password
+
+Validation test
+Run ansible command as ansadmin user it should be successful (Master)
+ansible all -m ping
+enter yes to continue
+it will ping local host as I did not add ssh-key to localhost
