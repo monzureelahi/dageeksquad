@@ -8,7 +8,7 @@
     ignore_errors: yes
 
   - name: remove stopped container
-    command: socker rm devops-container-001
+    command: docker rm devops-container-001
     ignore_errors: yes
 
   - name: remove docker image
