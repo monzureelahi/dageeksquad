@@ -1,0 +1,24 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - name: stop current running container
+    command: docker stop devops-container-001
+    ignore_errors: yes
+
+  - name: remove stopped container
+    command: socker rm devops-container-001
+    ignore_errors: yes
+
+  - name: remove docker image
+    command: docker rmi -f simple-devops-image
+    ignore_errors: yes
+
+  - name: building docker image
+    command: docker build -t simple-devops-image .
+    args:
+      chdir: /opt/docker
+
+  - name: Create container using devops-image
+    command: docker run -d --name devops-container-001 -p 8083:8080  simple-devops-image
