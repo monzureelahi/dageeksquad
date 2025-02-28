@@ -1,3 +1,13 @@
+What would main.tf do?
+
+✅ Creates a VPC (10.0.0.0/16).
+✅ Creates a public subnet (10.0.1.0/24).
+✅ Attaches an internet gateway for public internet access.
+✅ Creates a security group allowing SSH (22) and HTTP (80).
+✅ Launches an EC2 instance with Apache installed.
+✅ Outputs the public IP of the instance for easy access.
+
+
 Instruction
 
 Download and Install AWS CLI
