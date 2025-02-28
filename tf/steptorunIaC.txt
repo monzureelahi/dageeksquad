@@ -1,0 +1,19 @@
+Instruction
+
+Download and Install AWS CLI
+Check AWS CLI Version: aws --version
+Configure AWS CLI: aws configure
+Download terraform
+Create a folder in C:\ drive anywhere where you access
+Extract the terraform.exe in that folder
+
+Copy and paste terraform script as main.tf
+
+Terraform Execution Commands:
+
+terraform inialization: terraform init
+terraform plan: terraform plan
+terraform script check: terraform validate
+terraform script execution: terraform apply or, terraform apply -auto-approve
+DONOT make any changes in script
+terraform script destroy: terraform destroy or, terraform destroy -auto-approve
