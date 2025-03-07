@@ -1,0 +1,5 @@
+Create a S3 Bucket
+Upload this cf-LAMP.json template
+
+Go to Cloudformation and create Stack using this s3 location
+change keyname if needed
