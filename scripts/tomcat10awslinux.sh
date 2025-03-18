@@ -1,4 +1,4 @@
-##Installing Tomcat
+##Installing Tomcat in AWS Linux 2
 
 #!/bin/bash
 sudo yum update –y
