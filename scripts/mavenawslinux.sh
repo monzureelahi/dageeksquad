@@ -25,7 +25,7 @@ $ sudo su -
 # cd ~
 # pwd
 # ll -a
-# find / -name jvm
+# find / -name java
 
 ## Location for Java is  /usr/lib/jvm/java-17-amazon-corretto.x86_64
 ## Location for Maven is /opt/maven
