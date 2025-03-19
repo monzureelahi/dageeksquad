@@ -1,0 +1,19 @@
+Docker Setup
+  yum install docker -y
+  nano /etc/hostname
+  reboot
+  docker ps
+  systemctl status docker
+  systemctl start docker
+  systemctl enable docker
+  docker ps
+
+
+Integrate Docker with Jenkins
+
+Jenkins Job to copy artifacts on to DockerHost
+
+Create a Dockerfile
+
+Deploy a war file on Docker
+
