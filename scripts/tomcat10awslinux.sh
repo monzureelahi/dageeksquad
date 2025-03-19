@@ -7,3 +7,9 @@ sudo mv apache-tomcat-10.1.39.tar.gz tomcat
 sudo mv tomcat /opt
 cd /opt/tomcat
 ls -al
+
+amazon-linux-extras install java-openjdk11 -y
+
+Start tomcat
+cd /opt/tomcat/bin
+./startup
