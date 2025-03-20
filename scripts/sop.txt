@@ -1,0 +1,339 @@
+Scenario
+git > continuous build > Jenkins -----Java war file Deployment--> EC2 Instance
+
+Java Project
+
+
+##GitHub Repo## 
+https://github.com/monzureelahi/helloworld
+
+##Jenkins Installation## t2.medium Amazon Linux 2023 
+Change hostname and allow logon (/etc/ssh/sshd_config)
+Change password for root and ec2
+restart
+
+https://github.com/monzureelahi/dageeksquad/blob/master/scripts/jenkinsawslinux.sh
+
+##Maven Installation##
+https://github.com/monzureelahi/dageeksquad/blob/master/scripts/mavenawslinux.sh
+
+Task
+Launch EC2 Instance
+Change Hostname to Jenkins
+Restart and log back in
+Install and configure Jenkins
+Create First Job (Build > Execute Shell > echo "Welcome!")
+Go to Manage Jenkins > Tools > GitHub configuration, name it, Save
+Build Now
+Check it in workspace
+
+Create a Job for git integration (add repo name in git)
+Save it, Run the Build
+Check it in workspace
+
+Install maven in Linux
+configure environment variables, save and exit
+log off, log back on and test it
+Go to Manage Jenkins > Tools > JDK Installations > Add JDK
+name: java
+JAVA_HOME: /usr/lib/jvm/java-17-amazon-corretto.x86_64
+Save the configuration
+
+Install maven plugin in Jenkins
+add maven path: /opt/maven in Tools
+
+Create a job name maven-integration
+Select maven
+Enter git repo, check branch
+Enter clean install package in Goals and options
+Save the Build, Build Now
+Check it in workspace
+
+Integrate, Install Tomcat and change those configuration file
+Logon to Jenkins, Install Deploy to container plugins
+Create a Maven Job tomcat-integration (deploy war file in to Tomcat server)
+git repo: https://github.com/monzureelahi/helloworld
+Goals and options: clean install package
+Post Build: Deploy war/ear to a container (war files: **/*.war, Container version)
+Add credential for tomcat deployer
+Add tomcat url
+Save the Build, Build Now
+Check it at tomcat url/webapp
+Check the deployment in tomcat server in /opt/tomcat/webapps
+
+Deploy through PollSCM (Edit the Jenkins Job, select Poll SCM, add * * * * * (every minute)
+Modify the code, push the code and the Jenkins build will run automatically
+
+Integrate Docker in Jenkins
+Install publish over SSH plugin in Jenkins
+
+Logon to Docker Server
+useradd dockeradmin
+passwd dockeradmin
+
+Check Docker group in cat /etc/group
+Add dockeradmin to docker group: usermod -aG docker dockeradmin
+id dockeradmin
+
+Enable Remote login in SSH
+
+nano /etc/ssh/sshd_config
+systemctl restart sshd
+
+Login to Jenkins > Manage Jenkins > Setting > SSH Servers
+
+SSH Server Detail: 
+Name: ssh-host
+Private IP Address of Docker Server
+username:dockeradmin
+Click Advanced: Select Use Pass Authentication
+Passphrase/Password: Enter dockeradmin password
+
+Click Test Connection, Click Apply and Save
+
+Create a Jenkins Job docker-integration to copy artifacts on to DockerHost
+Create a Jenkins Job docker-integration (Maven Project) and copy configuration from Tomcat-Integration Job
+Click Ok
+Uncheck PollScm
+Remove Post Build Action for Deploy war/ear to a container
+Go to Post-build Actions: Send build artifacts over SSH, Select docker-host
+Source Files Location: webapp/target/*.war (Jenkins workspace from Jobs name /var/lib/Jenkins/workspace/jobname/webapp/target)
+Remove prefix: webapp/target
+Remote directory: . (dot)
+Click Apply, Click Save
+Logon to Docker host, logon as dockeradmin and check in home folder
+
+Create a Dockerfile
+Logon to Docker host, logon as dockeradmin
+su dockeradmin
+cd ~
+nano Dockerfile
+
+FROM tomcat:latest
+
+MAINTAINER Yourname
+COPY ./webapp.war /usr/local/tomcat/webapps
+Save and exit
+docker build -t devops-project .
+
+$docker images
+$docker run d --name devops-container1 -p 8080:8080 devops-project
+
+Check it by dockerhost's public ip:8080/webapp
+
+docker ps -a
+docker rm containername
+docker rm -f containername
+docker ps -a
+docker rmi docker-project
+docker rmi -f docker-project (image ID)
+docker images
+rm -rf webapp.war
+
+Deploy a war file on Docker container using Jenkins
+Logon to Jenkins
+Create a Job name dockercontainer-integration and copy configuration from Docker-Integration Job
+Post-build Actions: Exec command:
+cd /home/dockeradmin; docker build -t devops-image .; docker run -d --name devops-container -p 8080:8080 devops-image;
+
+If we re-run this, build will be unstable, we will have to sanitize them and run the build again
+
+docker ps -a
+docker rm containername
+docker rm -f containername
+docker ps -a
+docker rmi docker-project
+docker rmi -f docker-project (image ID)
+docker images
+rm -rf webapp.war
+
+Ansible Setup (Use the Docker Server instance)
+
+Install python and python-pip
+
+yum install python
+yum install python-pip
+
+Install ansible using pip check for version
+pip install ansible
+ansible --version
+
+mkdir /etc/ansible
+sudo chown -R ansadmin:ansadmin /etc/ansible
+
+Create a user called ansadmin (on Control node and Managed host)
+useradd ansadmin
+passwd ansadmin
+
+nano /etc/sudoers
+add the line at the bottom of the file, save and exit
+ansadmin ALL=(ALL) NOPASSWD: ALL
+
+yum install docker -y
+systemctl start docker
+systemctl enable docker
+
+
+Enable the passwordauthentication nano /etc/ssh/sshd_config
+
+save and exit
+systemctl restart sshd
+
+logon on ansadmin and generate the key
+default location: /home/ansadmin/.ssh/id_rsa.pub
+
+We will use docker-host as ansible host 
+
+Logon to Docker Host and Create a user called ansadmin 
+useradd ansadmin
+passwd ansadmin
+
+logon as ansadmin in ansible 
+ssh-copy-id ansadmin@dockerhostprivateip
+test it by ssh-ing: ssh ansadmin@dockerhostprivateip, exit to come back. it will login with no password
+ssh-copy-id localhost
+
+cd /etc/ansible
+nano hosts
+
+add them like below. Save and exit
+dockerhostprivateip
+localhost
+
+ansible all -m ping
+ssh-copy-id localhost
+ansible all -m ping
+
+
+Integrate Ansible with Jenkins
+
+Logon to Ansible as ansadmin
+sudo mkdir /opt/docker
+sudo chown -R ansadmin:ansadmin /opt/docker
+
+
+Logon to Jenkins > Manage Jenkins
+Go to System
+
+Add second ssh server
+name: ansible
+host: privateipofanibleserver
+Username: ansadmin
+Password:
+
+Click Apply, Save
+
+Ansible with Jenkins - Deploy on Container through Ansible (Copy .war file from Jenkins to Ansible Control Node)
+
+Create a Jenkins job name ansible-integration and copy configuration from dockercontainer-integration
+Edit the Job
+Change the ssh server to ansible
+Remote directory: //opt//docker
+Remove the exec commands, save and run the build
+
+check in /opt/docker to see war file
+
+Creating an Ansible Playbook
+copy the dockerfile content from cat /home/dockeradmin/Dockerfile from Docker server
+
+Logon to Ansible
+Logon an ansadmin
+cd /opt/docker
+nano Dockerfile
+Copy and paste dockerfile content from cat /home/dockeradmin/Dockerfile from Docker server
+Save and exit
+nano simple-devops-image.yml
+
+---
+- hosts: all
+  #ansadmin doesn't need root access to create an image
+  become: true
+
+  tasks:
+  - name: building docker image
+    command: docker build -t simple-devops-image .
+    args:
+      chdir: /opt/docker
+
+  - name: creating docker image using docker command
+    command: docker run -d --name simple-devops-container -p 8080:8080 simple-devops-image
+
+Save and exit
+
+docker images
+docker ps
+ls
+
+cat /etc/ansible/hosts
+cd /opt/docker
+pwd
+nano hosts
+localhost
+save and exit
+
+ansible-playbook -i hosts simple-devops-image.yml --check
+ansible-playbook -i hosts simple-devops-image.yml
+docker images
+
+add the following in simple-devops-image.yml
+  - name: creating docker image using docker command
+    command: docker run -d --name simple-devops-container -p 8080:8080 simple-devops-image
+
+mv simple-devops-image.yml to simple-devops-project.yml
+
+ansible-playbook -i hosts simple-devops-project.yml
+
+docker images
+docker ps
+
+Run Ansible Playbook from Jenkins
+
+docker ps -a
+docker stop simple-devops-container
+docker rm simple-devops-container
+docker images
+docker rmi simple-devops-image
+docker images
+
+Logon to Jenkins
+Edit the ansible-Integration
+
+Add the following in ansible exec command (Send build artifacts over ssh)
+ansible-playbook -i /opt/docker/hosts /opt/docker/simple-devops-project.yml;
+
+Save it and run it
+Enable PollScm for continuous deployment after code changes
+Save it and run it
+Make changes on Codes and build will run automatically
+Build will show unstable (need to clean images and containers before we run it again)
+
+Remove container, images and create it again
+
+---
+- hosts: all
+  #ansadmin doesn't need root access to create an image
+  become: true
+
+  tasks:
+  - name: stop current running container
+    command: docker stop simple-devops-container
+    ignore_errors: yes
+
+  - name: remove stopped container
+    command: docker rm simple-devops-container
+    ignore_errors: yes
+
+  - name: remove docker image
+    command: docker rmi simple-devops-image
+    ignore_errors: yes
+
+  - name: building docker image
+    command: docker build -t simple-devops-image .
+    args:
+      chdir: /opt/docker
+
+  - name: creating docker image using docker command
+    command: docker run -d --name simple-devops-container -p 8080:8080 simple-devops-image
+
+Save and exit
+
