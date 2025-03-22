@@ -27,18 +27,56 @@
    28  sudo mv prometheus /usr/local/bin/
    29  sudo chown -R prometheus:prometheus /usr/local/bin/prometheus
    30  sudo nano /etc/systemd/system/prometheus.service
+
+[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=prometheus
+Group=prometheus
+Type=simple
+ExecStart=/usr/local/bin/prometheus \
+    --config.file /etc/prometheus/prometheus.yml \
+    --storage.tsdb.path /var/lib/prometheus/ \
+    --web.console.templates=/etc/prometheus/consoles \
+    --web.console.libraries=/etc/prometheus/console_libraries
+
+[Install]
+WantedBy=multi-user.target
+
    31  sudo systemctl daemon-reload
    32  sudo systemctl start prometheus
    33  sudo systemctl enable prometheus
    34  sudo systemctl status prometheus
    35  clear
-   36  wget https://github.com/prometheus/node_exporter/releases/download/v1.9.0/node_exporter-1.9.0.linux-amd64.tar.gz
+
+Test Prometheus
+
+
    37  cd ..
    38  wget https://github.com/prometheus/node_exporter/releases/download/v1.9.0/node_exporter-1.9.0.linux-amd64.tar.gz
    39  ls
    40  sudo tar -xvzf node_exporter-1.9.0.linux-amd64.tar.gz
-   41  sudo useradd -rs /bin/false node_exporter
+sudo mv node_exporter-*.*-amd64/node_exporter /usr/local/bin/   
+41  sudo useradd -rs /bin/false node_exporter
    42  sudo nano /etc/systemd/system/node_exporter.service
+
+[Unit]
+Description=Node Exporter
+After=network.target
+
+[Service]
+User=node_exporter
+Group=node_exporter
+
+Type=simple
+ExecStart=/usr/local/bin/node_exporter
+
+[Install]
+WantedBy=multi-user.target
+
    43  sudo systemctl daemon-reload
    44  sudo systemctl enable node_exporter
    45  sudo systemctl start node_exporter
