@@ -1,0 +1,61 @@
+ 2  sudo useradd --no-create-home --shell /bin/false prometheus
+    3  sudo mkdir /etc/prometheus
+    4  sudo mkdir /var/lib/prometheus
+    5  sudo chown -R prometheus:prometheus /var/lib/prometheus
+    6  wget https://github.com/prometheus/prometheus/releases/download/v3.2.1/prometheus-3.2.1.darwin-amd64.tar.gz
+    7  sudo tar -xvf prometheus-3.2.1.darwin-amd64.tar.gz
+    8  cd prometheus-3.2.1.darwin-amd64/
+    9  cd ..
+   10  ls
+   11  rm prometheus-3.2.1.darwin-amd64
+   12  rm -rf prometheus-3.2.1.darwin-amd64
+   13  rm -rf prometheus-3.2.1.darwin-amd64.tar.gz
+   14  ls
+   15  wget https://github.com/prometheus/prometheus/releases/download/v3.2.1/prometheus-3.2.1.linux-amd64.tar.gz
+   16  sudo tar -xvf prometheus-3.2.1.linux-amd64.tar.gz
+   17  cd prometheus-3.2.1.linux-amd64/
+   18  ls
+   19  ls conso*
+   20  tree
+   21  yum intall tree
+   22  yum install tree
+   23  ls
+   24  tree
+   25  ls
+   26  sudo mv prometheus.yml /etc/prometheus/
+   27  sudo chown -R prometheus:prometheus /etc/prometheus
+   28  sudo mv prometheus /usr/local/bin/
+   29  sudo chown -R prometheus:prometheus /usr/local/bin/prometheus
+   30  sudo nano /etc/systemd/system/prometheus.service
+   31  sudo systemctl daemon-reload
+   32  sudo systemctl start prometheus
+   33  sudo systemctl enable prometheus
+   34  sudo systemctl status prometheus
+   35  clear
+   36  wget https://github.com/prometheus/node_exporter/releases/download/v1.9.0/node_exporter-1.9.0.linux-amd64.tar.gz
+   37  cd ..
+   38  wget https://github.com/prometheus/node_exporter/releases/download/v1.9.0/node_exporter-1.9.0.linux-amd64.tar.gz
+   39  ls
+   40  sudo tar -xvzf node_exporter-1.9.0.linux-amd64.tar.gz
+   41  sudo useradd -rs /bin/false node_exporter
+   42  sudo nano /etc/systemd/system/node_exporter.service
+   43  sudo systemctl daemon-reload
+   44  sudo systemctl enable node_exporter
+   45  sudo systemctl start node_exporter
+   46  sudo systemctl status node_exporter
+   47  sudo systemctl restart node_exporter
+   48  sudo systemctl status node_exporter
+   49  ls
+   50  sudo systemctl daemon-reload
+   51  sudo systemctl restart node_exporter
+   52  sudo systemctl status node_exporter
+   53  sudo nano /etc/systemd/system/node_exporter.service
+   54  sudo mv node_exporter-*.*-amd64/node_exporter /usr/local/bin/
+   55  sudo systemctl daemon-reload
+   56  sudo systemctl restart node_exporter
+   57  sudo systemctl status node_exporter
+   58  sudo nano /etc/prometheus/prometheus.yml
+   59  clear
+   60  sudo systemctl restart prometheus.service
+
+   https://www.fosstechnix.com/jenkins-monitoring-with-prometheus-and-grafana/
