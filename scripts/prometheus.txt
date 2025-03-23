@@ -1,27 +1,13 @@
- 2  sudo useradd --no-create-home --shell /bin/false prometheus
+Install Prometheus Server
+
+2  sudo useradd --no-create-home --shell /bin/false prometheus
     3  sudo mkdir /etc/prometheus
     4  sudo mkdir /var/lib/prometheus
     5  sudo chown -R prometheus:prometheus /var/lib/prometheus
-    6  wget https://github.com/prometheus/prometheus/releases/download/v3.2.1/prometheus-3.2.1.darwin-amd64.tar.gz
-    7  sudo tar -xvf prometheus-3.2.1.darwin-amd64.tar.gz
-    8  cd prometheus-3.2.1.darwin-amd64/
-    9  cd ..
-   10  ls
-   11  rm prometheus-3.2.1.darwin-amd64
-   12  rm -rf prometheus-3.2.1.darwin-amd64
-   13  rm -rf prometheus-3.2.1.darwin-amd64.tar.gz
-   14  ls
-   15  wget https://github.com/prometheus/prometheus/releases/download/v3.2.1/prometheus-3.2.1.linux-amd64.tar.gz
+    5  wget https://github.com/prometheus/prometheus/releases/download/v3.2.1/prometheus-3.2.1.linux-amd64.tar.gz
    16  sudo tar -xvf prometheus-3.2.1.linux-amd64.tar.gz
    17  cd prometheus-3.2.1.linux-amd64/
    18  ls
-   19  ls conso*
-   20  tree
-   21  yum intall tree
-   22  yum install tree
-   23  ls
-   24  tree
-   25  ls
    26  sudo mv prometheus.yml /etc/prometheus/
    27  sudo chown -R prometheus:prometheus /etc/prometheus
    28  sudo mv prometheus /usr/local/bin/
@@ -52,8 +38,9 @@ WantedBy=multi-user.target
    34  sudo systemctl status prometheus
    35  clear
 
-Test Prometheus
+Test Prometheus Server: instanceip:9090
 
+## Install Node Exporter
 
    37  cd ..
    38  wget https://github.com/prometheus/node_exporter/releases/download/v1.9.0/node_exporter-1.9.0.linux-amd64.tar.gz
@@ -81,19 +68,54 @@ WantedBy=multi-user.target
    44  sudo systemctl enable node_exporter
    45  sudo systemctl start node_exporter
    46  sudo systemctl status node_exporter
-   47  sudo systemctl restart node_exporter
    48  sudo systemctl status node_exporter
-   49  ls
-   50  sudo systemctl daemon-reload
-   51  sudo systemctl restart node_exporter
-   52  sudo systemctl status node_exporter
    53  sudo nano /etc/systemd/system/node_exporter.service
    54  sudo mv node_exporter-*.*-amd64/node_exporter /usr/local/bin/
    55  sudo systemctl daemon-reload
    56  sudo systemctl restart node_exporter
    57  sudo systemctl status node_exporter
    58  sudo nano /etc/prometheus/prometheus.yml
+
+- job_name: 'Node_Exporter'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9100']
+
    59  clear
    60  sudo systemctl restart prometheus.service
+
+## Install Grafana Server
+
+wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
+
+Next, add the Grafana repository to your APT sources:
+sudo add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
+
+Refresh your APT cache to update your package lists:
+sudo apt update
+
+You can now proceed with the installation:
+sudo apt install grafana
+
+Once Grafana is installed, use systemctl to start the Grafana server:
+sudo systemctl start grafana-server
+
+Next, verify that Grafana is running by checking the service’s status:
+sudo systemctl status grafana-server
+sudo systemctl enable grafana-server
+
+Test Grafana Server: <instance_ip>:3000
+
+User ID: admin, Password: admin
+
+Click Add data source and select Prometheus
+
+For the URL, enter http://localhost:9090 and click Save and test. You can see Data source is working.
+
+Click on Save and Test.
+
+Click + from Top right > Click Import Dashboard
+Enter ID 1860 for Node Exporter
+Select Data Source Prometheus and Click Import
 
    https://www.fosstechnix.com/jenkins-monitoring-with-prometheus-and-grafana/
