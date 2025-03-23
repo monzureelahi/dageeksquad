@@ -118,4 +118,4 @@ Click + from Top right > Click Import Dashboard
 Enter ID 1860 for Node Exporter
 Select Data Source Prometheus and Click Import
 
-   https://www.fosstechnix.com/jenkins-monitoring-with-prometheus-and-grafana/
+
