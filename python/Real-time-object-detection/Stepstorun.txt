@@ -1,0 +1,4 @@
+Setup Python environment variable
+Go to Env and add the path (Example: C:\Users\green\AppData\Local\Programs\Python\Launcher\)
+Restart
+Copy the full code in a directly and run it from vscode
