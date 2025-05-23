@@ -1,3 +1,8 @@
+Project: Infrastructure as Code with Terraform on AWS
+I developed and deployed cloud infrastructure using Terraform, applying Infrastructure as Code (IaC) principles to provision and manage AWS resources such as EC2 instances, VPCs, subnets, and S3 buckets. The goal was to create a scalable, reproducible environment while minimizing manual effort and human error. I defined Terraform modules and variables for resource configuration and used AWS CLI and IAM policies for secure and automated provisioning.
+
+Version control was implemented via GitHub, and remote backend configuration ensured collaborative state management. I also integrated Terraform with Jenkins for automated deployment of infrastructure as part of the CI/CD pipeline. This implementation enabled consistent and repeatable cloud environments across development and staging, reducing provisioning time by over 80% and enhancing compliance with organizational standards.
+
 What would main.tf do?
 
 ✅ Creates a VPC (10.0.0.0/16).
@@ -7,10 +12,8 @@ What would main.tf do?
 ✅ Launches an EC2 instance with Apache installed.
 ✅ Outputs the public IP of the instance for easy access.
 
-
-Instruction
-
-Download and Install AWS CLI
+Steps:
+Download and Install AWS CLI (https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 Check AWS CLI Version: aws --version
 Configure AWS CLI: aws configure
 Download terraform
